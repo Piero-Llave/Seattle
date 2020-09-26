@@ -1,0 +1,104 @@
+*La importancia de la variable “tasa de pobreza mundial” radica en la influencia que ejerce en condicionar la participación política de las mujeres, en tanto que, las priva de poder participar en la elección de cargos públicos. Se infiere que en los países con una tasa mayor de pobreza, la participación de la mujer en elecciones  de cargos públicos, se ve condicionada, por ende, disminuye,  debido a la falta de recursos económicos que se requiere para poder ejecutar las campañas.*
+
+```{r}
+library(rio)
+lkCSV="https://github.com/Piero-Llave/TrabajoEstadistica2/raw/master/Pobreza.csv"
+pobreza=import(lkCSV)
+
+pobreza1=import(lkCSV)
+pobreza2=import(lkCSV)
+pobreza3=import(lkCSV)
+pobreza4=import(lkCSV)
+pobreza5=import(lkCSV)
+```
+Se eliminan las columnas que no se usarán
+```{r}
+pobreza1[,c(2,3,4,5,8)]=NULL
+pobreza2[,c(2,3,4,5,8)]=NULL
+pobreza3[,c(2,3,4,5,8)]=NULL
+pobreza4[,c(2,3,4,5,8)]=NULL
+pobreza5[,c(2,3,4,5,8)]=NULL
+
+```
+
+```{r}
+
+pobreza1$TIME=gsub("2012", NA, pobreza1$TIME)
+pobreza1$TIME=gsub("2013", NA, pobreza1$TIME)
+pobreza1$TIME=gsub("2014", NA, pobreza1$TIME)
+pobreza1$TIME=gsub("2015", NA, pobreza1$TIME)
+
+```
+
+```{r}
+pobreza2$TIME=gsub("2011", NA, pobreza2$TIME)
+pobreza2$TIME=gsub("2013", NA, pobreza2$TIME)
+pobreza2$TIME=gsub("2014", NA, pobreza2$TIME)
+pobreza2$TIME=gsub("2015", NA, pobreza2$TIME)
+```
+
+```{r}
+pobreza3$TIME=gsub("2011", NA, pobreza3$TIME)
+pobreza3$TIME=gsub("2012", NA, pobreza3$TIME)
+pobreza3$TIME=gsub("2014", NA, pobreza3$TIME)
+pobreza3$TIME=gsub("2015", NA, pobreza3$TIME)
+```
+
+```{r}
+pobreza4$TIME=gsub("2011", NA, pobreza4$TIME)
+pobreza4$TIME=gsub("2012", NA, pobreza4$TIME)
+pobreza4$TIME=gsub("2013", NA, pobreza4$TIME)
+pobreza4$TIME=gsub("2015", NA, pobreza4$TIME)
+```
+
+```{r}
+pobreza5$TIME=gsub("2011", NA, pobreza5$TIME)
+pobreza5$TIME=gsub("2012", NA, pobreza5$TIME)
+pobreza5$TIME=gsub("2014", NA, pobreza5$TIME)
+pobreza5$TIME=gsub("2013", NA, pobreza5$TIME)
+```
+Borrando los NAs
+```{r}
+pobreza1=na.omit(pobreza1)
+pobreza2=na.omit(pobreza2)
+pobreza3=na.omit(pobreza3)
+pobreza4=na.omit(pobreza4)
+pobreza5=na.omit(pobreza5)
+```
+
+```{r}
+pobreza1$TIME=NULL
+pobreza2$TIME=NULL
+pobreza3$TIME=NULL
+pobreza4$TIME=NULL
+pobreza5$TIME=NULL
+```
+
+```{r}
+names(pobreza1)= c("País","Data 2011")
+names(pobreza2)= c("País","Data 2012")
+names(pobreza3)= c("País","Data 2013")
+names(pobreza4)= c("País","Data 2014")
+names(pobreza5)= c("País","Data 2015")
+
+```
+Merge
+```{r}
+p1p2=merge(pobreza1,pobreza2,all.x=T,all.y=T)
+head(p1p2)
+
+p1p2p3=merge(p1p2,pobreza3,all.x=T,all.y=T)
+head(p1p2p3)
+
+p1p2p3p4=merge(p1p2p3,pobreza4,all.x=T,all.y=T)
+head(p1p2p3p4)
+
+Pobreza_Final=merge(p1p2p3p4,pobreza5,all.x=T,all.y=T)
+head(Pobreza_Final)
+
+```
+
+```{r}
+write.csv(Pobreza_Final, "pobreza mundial.csv", row.names=F)
+```
+
