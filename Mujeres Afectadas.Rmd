@@ -1,3 +1,4 @@
+#Comandos e importancia
 
 *Usamos esta data dado que nos permitirá observar una de nuestras variables independientes. Con la data de la violencia contra la mujer podemos entender que en aquellos países donde existe más violencia, la variable dependiente (participación de la mujer en la política parlamentaria) es menor. Por lo que podemos inferir que mientras más violencia contra la mujer haya, menor es la posibilidad que tienen las mujeres de ser parlamentarias.*
 
