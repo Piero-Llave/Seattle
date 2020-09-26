@@ -1,0 +1,29 @@
+# TrabajoEstadistica2
+
+```{r}
+library(rio)
+github='https://github.com/Piero-Llave/TrabajoEstadistica2/raw/master/Mujeres%20afectadas.csv'
+
+violencia=import(github)
+head(violencia)
+```
+
+```{r}
+#Pasamos a limpiar variables, solo nos sirven ciertas columnas
+violencia[,c(2,3,4,5,8)]=NULL
+head(violencia)
+
+```
+
+```{r}
+#Observamos variables perdidas.
+
+violencia[!complete.cases(violencia),]
+```
+*No existen variables perdidas
+
+```{r}
+#Descargo la data limpia
+
+write.csv(violencia, "Mujeres afectadas.csv")
+```
