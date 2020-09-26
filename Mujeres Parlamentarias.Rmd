@@ -1,0 +1,31 @@
+*Esta data representa nuestra variable dependiente, en donde observaremos cuantas mujeres participan en política con cargos parlamentarios por país. Hemos tomado un rango de años del 2009 al 2019 para observar más detalladamente las variables independientes¨*
+
+```{r}
+library(rio)
+link='https://github.com/Piero-Llave/TrabajoEstadistica2/raw/master/Mujeres%20pol%C3%ADticas%20en%20el%20parlamento.xls'
+
+parlamentarias=import(link)
+
+head(parlamentarias)
+```
+
+```{r}
+parlamentarias[,c(4:53)]=NULL
+```
+
+```{r}
+head(parlamentarias)
+```
+
+```{r}
+parlamentarias[,c(1,3)]=NULL
+```
+
+```{r}
+head(parlamentarias)
+```
+
+```{r}
+write.csv(parlamentarias,"Mujeres Parlamentarias.csv", row.names = F)
+```
+
