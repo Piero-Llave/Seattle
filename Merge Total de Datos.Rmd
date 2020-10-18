@@ -1,0 +1,35 @@
+#Realizando el merge de las datas
+
+```{r}
+violencia_contra_la_mujer1=merge(violencia, violencia_final, all.x=T, all.y=T)
+```
+
+```{r}
+violencia_contra_la_mujer1[,c(2)]=NULL
+```
+
+```{r}
+parlamentaria_violencia1=merge(parlamentarias, violencia_contra_la_mujer1, by.x ='Pais', by.y ='Pais')
+```
+
+
+```{r}
+names(parlamentaria_violencia1)=c("Pais", "Porcentaje de Parlamentarias 2010-2019", "Violencia física y psicológica de la mujer de 15 - 49 años", "Porcentaje de violencia a la mujer 2014", "Porcentaje de violencia a la mujer 2019")
+```
+
+```{r}
+parlamentaria_violencia1$`Porcentaje de Parlamentarias 2010-2019`=round(parlamentaria_violencia1$`Porcentaje de Parlamentarias 2010-2019`,1)
+```
+
+
+```{r}
+dataprueba=merge(educacionmujer, antibank, all.x=T, all.y = T)
+```
+
+```{r}
+'dataprueba1'=merge(parlamentaria_violencia1, dataprueba, by.x = 'Pais', by.y = 'Pais')
+```
+
+
+
+
