@@ -1,0 +1,86 @@
+*Usamos esta data dado que nos permitirá observar una de nuestras variables independientes. Con la data de la violencia contra la mujer podemos entender que en aquellos países donde existe más violencia, la variable dependiente (participación de la mujer en la política parlamentaria) es menor. Por lo que podemos inferir que mientras más violencia contra la mujer haya, menor es la posibilidad que tienen las mujeres de ser parlamentarias.*
+```{r}
+
+library(rio)
+link='https://github.com/Piero-Llave/TrabajoEstadistica2/raw/master/Against%20Women.csv'
+
+violence1=import(link)
+violence2=import(link)
+
+head(violence1)
+head(violence2)
+```
+
+```{r}
+#Convertimos las variables en 2 distintas, para obtener el año en columnas
+
+violence1$TIME=gsub('2014',NA, violence1$TIME)
+```
+
+```{r}
+violence2$TIME=gsub('2019',NA, violence2$TIME)
+```
+
+```{r}
+#Limpiamos las columnas que no vamos a usar violence1
+
+violence1[,c(2,3,4,5,8)]=NULL
+```
+
+
+```{r}
+#Limpiamos las columnas que no vamos a usar para violence2
+
+violence2[,c(2,3,4,5,8)]=NULL
+```
+
+```{r}
+#Borramos los NA en cada tabla
+violence1=na.omit(violence1)
+```
+
+```{r}
+violence2=na.omit(violence2)
+```
+
+*Ahora tenemos la data tanto del 2014 como del 2019, debemos hacerle merge*
+
+
+```{r}
+#Primero cambiamos los nombres de los datos
+names(violence1)=c("País","Año", "Data 2019")
+```
+
+```{r}
+names(violence2)=c("País","Año", "Data 2014")
+```
+
+```{r}
+#Luego realizamos el merge. Nuestro key es "País
+violencia_final=merge(violence2, violence1, by.x='País', by.y='País')
+```
+
+```{r}
+violencia_final[,c(2,4)]=NULL
+
+```
+
+```{r}
+violencia_final$País=trimws(violencia_final$País,whitespace = "[\\h\\v]")
+
+```
+
+```{r}
+names(violencia_final)=c("Pais","Data 2014", "Data 2019")
+```
+
+```{r}
+head(violencia_final)
+str(violencia_final)
+```
+
+```{r}
+#Descargo la data limpia
+write.csv(violencia_final,"Violencia contra la mujer.csv", row.names = F)
+```
+
